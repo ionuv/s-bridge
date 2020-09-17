@@ -1,0 +1,22 @@
+{
+  "name": "s-bridge",
+  "version": "1.0.5",
+  "description": "基于dsBridge扩展的库",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dsBridge",
+    "ios"
+  ],
+  "author": {
+    "name": "zlzkyuxin",
+    "email": "1134548344@qq.com",
+    "url": "https://github.com/zlzkyuxin/"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "dsbridge": "^3.1.4"
+  }
+}
