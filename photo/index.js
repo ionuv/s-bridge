@@ -4,7 +4,7 @@ const dsBridge = require('dsbridge')
 const backBlock = require('../common/index')
 
 // 拍照
-const takePhoto = (options) => {
+const takePhoto = function(options) {
   if(typeof(options) === 'object') {
     options['type'] = 'camera'
     photoswithOptions(options)
@@ -14,7 +14,7 @@ const takePhoto = (options) => {
 }
 
 // 打开相册获取图片
-const getPhotos = (options) => {
+const getPhotos = function(options) {
   if(typeof(options) === 'object') {
     options['type'] = 'photo'
     photoswithOptions(options)
@@ -24,14 +24,14 @@ const getPhotos = (options) => {
 }
 
 // 默认参数调起相机或者相册
-const photos = (type) => {
-  dsBridge.call('photos', type, (res) => {
+const photos = function(type) {
+  dsBridge.call('photos', type, function(res) {
     backBlock(res)
   })
 }
 
-const photoswithOptions = (options) => {
-  dsBridge.call('photoswithOptions', options, (res) => {
+const photoswithOptions = function(options) {
+  dsBridge.call('photoswithOptions', options, function(res) {
     backBlock(res)
   })
 }

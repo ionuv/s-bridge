@@ -4,22 +4,22 @@ const photo = require('./photo/index')
 const backBlock = require('./common/index')
 
 // 检测原生是否存在该方法
-const hasNativeMethod = (funcName, type) => {
+const hasNativeMethod = function(funcName, type) {
   return dsBridge.hasNativeMethod(funcName, type)
 }
 
 // js注册同步方法
-const register = (name, fun, asyn) => {
+const register = function(name, fun, asyn) {
   dsBridge.register(name, fun, asyn)
 }
 
 // js注册异步方法
-const registerAsyn = (name, fun) => {
+const registerAsyn = function(name, fun) {
   dsBridge.registerAsyn(name, fun)
 }
 
 // 判断设备是否是真机 -1未知设备 0真机 1模拟器
-const isMobile = () => {
+const isMobile = function() {
   let res = dsBridge.call('isMobile')
   if(res) {
     let response = JSON.parse(res)
@@ -29,8 +29,8 @@ const isMobile = () => {
   }
 }
 
-const asyncIsMobile = () => {
-  dsBridge.call('isMobile',(res) => {
+const asyncIsMobile = function() {
+  dsBridge.call('isMobile', function(res) {
     if(res) {
       let response = JSON.parse(res)
       return Promise.resolve(response.err)
@@ -41,7 +41,7 @@ const asyncIsMobile = () => {
 }
 
 // 同步获取原生数据
-const getItem = (key) => {
+const getItem = function(key) {
   let res = dsBridge.call('getItem',key)
   if(res) {
     let response = JSON.parse(res)
@@ -52,38 +52,38 @@ const getItem = (key) => {
 }
 
 // 异步获取原生数据
-const asyncGetItem = (key) => {
-  dsBridge.call('getItem',key,(res) => {
+const asyncGetItem = function(key) {
+  dsBridge.call('getItem',key, function(res) {
     backBlock(res)
   })
 }
 
 // 同步存储数据到原生
-const setItem = (obj) => {
+const setItem = function(obj) {
   return dsBridge.call('setItem', obj)
 }
 
 // 异步存储数据到原生
-const asyncSetItem = (obj) => {
-  dsBridge.call('setItem', obj, (res) => {
+const asyncSetItem = function(obj) {
+  dsBridge.call('setItem', obj, function(res) {
     backBlock(res)
   })
 }
 
 // 同步打电话
-const callPhone = (mobile) => {
+const callPhone = function(mobile) {
   return dsBridge.call('callPhone', mobile)
 }
 
 // 异步打电话
-const asyncCallPhone = (mobile) => {
-  dsBridge.call('callPhone', mobile, (res) => {
+const asyncCallPhone = function(mobile) {
+  dsBridge.call('callPhone', mobile, function(res) {
     backBlock(res)
   })
 }
 
 // 获取设备信息
-const getDeviceInfo = () => {
+const getDeviceInfo = function() {
   let res = dsBridge.call('getDeviceInfo')
   if(res) {
     let response = JSON.parse(res)
@@ -94,14 +94,14 @@ const getDeviceInfo = () => {
 }
 
 // 异步获取设备信息
-const asyncGetDeviceInfo = () => {
-  dsBridge.call('getDeviceInfo', (res) => {
+const asyncGetDeviceInfo = function() {
+  dsBridge.call('getDeviceInfo', function(res) {
     backBlock(res)
   })
 }
 
 // 获取推送的token
-const getDeviceToken = () => {
+const getDeviceToken = function() {
   let res = dsBridge.call('getDeviceToken')
   if(res) {
     let response = JSON.parse(res)
@@ -112,8 +112,8 @@ const getDeviceToken = () => {
 }
 
 // 异步推送的token
-const asyncGetDeviceToken = () => {
-  dsBridge.call('getDeviceToken', (res) => {
+const asyncGetDeviceToken = function() {
+  dsBridge.call('getDeviceToken', function(res) {
     if(res) {
       let response = JSON.parse(res)
       return Promise.resolve(response.deviceToken)
@@ -124,7 +124,7 @@ const asyncGetDeviceToken = () => {
 }
 
 // 打开新的web页
-const openFrame = (url) => {
+const openFrame = function(url) {
   let res = dsBridge.call('openFrame', url)
   if(res) {
     let response = JSON.parse(res)
@@ -135,14 +135,14 @@ const openFrame = (url) => {
 }
 
 // 异步打开新的web页
-const asyncOpenFrame = (url) => {
-  dsBridge.call('openFrame', url, (res) => {
+const asyncOpenFrame = function(url) {
+  dsBridge.call('openFrame', url, function(res) {
     backBlock(res)
   })
 }
 
 // 获取页面注入的参数
-const getParams = () => {
+const getParams = function() {
   let res = dsBridge.call('getParams')
   if(res) {
     let response = JSON.parse(res)
@@ -153,8 +153,8 @@ const getParams = () => {
 }
 
 // 异步获取页面注入的参数
-const asyncGetParams = () => {
-  dsBridge.call('getParams', (res) => {
+const asyncGetParams = function() {
+  dsBridge.call('getParams', function(res) {
     if(res) {
       let response = JSON.parse(res)
       return Promise.resolve(response)
@@ -165,13 +165,13 @@ const asyncGetParams = () => {
 }
 
 // 关闭当前页面
-const closeView = () => {
+const closeView = function() {
   return dsBridge.call('closeView')
 }
 
 // 异步获取页面注入的参数
-const asyncCloseView = () => {
-  dsBridge.call('closeView', (res) => {
+const asyncCloseView = function() {
+  dsBridge.call('closeView', function(res) {
     return Promise.resolve('')
   })
 }
