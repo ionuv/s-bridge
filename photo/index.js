@@ -1,44 +1,48 @@
-const dsBridge = require('dsbridge')
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var dsBridge = require('dsbridge');
 
 // 通用回调
-const backBlock = require('../common/index')
+var backBlock = require('../common/index');
 
 // 拍照
-const takePhoto = function(options) {
-  if(typeof(options) === 'object') {
-    options['type'] = 'camera'
-    photoswithOptions(options)
-  }else {
-    photos('camera')
+var takePhoto = function takePhoto(options) {
+  if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+    options['type'] = 'camera';
+    photoswithOptions(options);
+  } else {
+    photos('camera');
   }
-}
+};
 
 // 打开相册获取图片
-const getPhotos = function(options) {
-  if(typeof(options) === 'object') {
-    options['type'] = 'photo'
-    photoswithOptions(options)
-  }else {
-    photos('photo')
+var getPhotos = function getPhotos(options) {
+  if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
+    options['type'] = 'photo';
+    photoswithOptions(options);
+  } else {
+    photos('photo');
   }
-}
+};
 
 // 默认参数调起相机或者相册
-const photos = function(type) {
-  dsBridge.call('photos', type, function(res) {
-    backBlock(res)
-  })
-}
+var photos = function photos(type) {
+  dsBridge.call('b.photos', type, function (res) {
+    backBlock(res);
+  });
+};
 
-const photoswithOptions = function(options) {
-  dsBridge.call('photoswithOptions', options, function(res) {
-    backBlock(res)
-  })
-}
+var photoswithOptions = function photoswithOptions(options) {
+  dsBridge.call('b.photoswithOptions', options, function (res) {
+    backBlock(res);
+  });
+};
 
-const photo = {
-  takePhoto,
-  getPhotos
-}
+var photo = {
+  takePhoto: takePhoto,
+  getPhotos: getPhotos
+};
 
-exports.default = photo
+module.exports = photo;
