@@ -3,8 +3,14 @@
   "version": "1.0.6",
   "description": "基于dsBridge扩展的库",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionuv/s-bridge.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel index.js common/index.js photo/index.js --presets babel-preset-es2015 --out-dir ./dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "dsBridge",
@@ -18,5 +24,9 @@
   "license": "ISC",
   "dependencies": {
     "dsbridge": "^3.1.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
