@@ -4,16 +4,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var dsBridge = require('dsbridge');
 
-// 通用回调
-var backBlock = require('../common/index');
-
 // 拍照
 var takePhoto = function takePhoto(options) {
   if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
     options['type'] = 'camera';
-    photoswithOptions(options);
+    return photoswithOptions(options);
   } else {
-    photos('camera');
+    return photos('camera');
   }
 };
 
@@ -21,22 +18,26 @@ var takePhoto = function takePhoto(options) {
 var getPhotos = function getPhotos(options) {
   if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) === 'object') {
     options['type'] = 'photo';
-    photoswithOptions(options);
+    return photoswithOptions(options);
   } else {
-    photos('photo');
+    return photos('photo');
   }
 };
 
 // 默认参数调起相机或者相册
 var photos = function photos(type) {
-  dsBridge.call('b.photos', type, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('b.photos', type, function (res) {
+      resolve(res);
+    });
   });
 };
 
 var photoswithOptions = function photoswithOptions(options) {
-  dsBridge.call('b.photoswithOptions', options, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('b.photoswithOptions', options, function (res) {
+      resolve(res);
+    });
   });
 };
 

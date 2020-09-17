@@ -3,13 +3,10 @@
 var backBlock = function backBlock(res) {
   if (res) {
     var response = JSON.parse(res);
-    if (response.err === 0) {
-      return Promise.resolve(response.message);
-    } else {
-      return Promise.reject(response.message);
-    }
+    return response.message;
   } else {
-    return Promise.resolve('');
+    return '';
   }
 };
+
 exports.default = backBlock;

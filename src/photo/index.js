@@ -1,38 +1,39 @@
 const dsBridge = require('dsbridge')
 
-// 通用回调
-const backBlock = require('../common/index')
-
 // 拍照
-const takePhoto = function(options) {
+const takePhoto = (options) => {
   if(typeof(options) === 'object') {
     options['type'] = 'camera'
-    photoswithOptions(options)
+    return photoswithOptions(options)
   }else {
-    photos('camera')
+    return photos('camera')
   }
 }
 
 // 打开相册获取图片
-const getPhotos = function(options) {
+const getPhotos = (options) => {
   if(typeof(options) === 'object') {
     options['type'] = 'photo'
-    photoswithOptions(options)
+    return photoswithOptions(options)
   }else {
-    photos('photo')
+    return photos('photo')
   }
 }
 
 // 默认参数调起相机或者相册
-const photos = function(type) {
-  dsBridge.call('b.photos', type, function(res) {
-    backBlock(res)
+const photos = (type) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('b.photos', type, (res) => {
+      resolve(res)
+    })
   })
 }
 
-const photoswithOptions = function(options) {
-  dsBridge.call('b.photoswithOptions', options, function(res) {
-    backBlock(res)
+const photoswithOptions = (options) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('b.photoswithOptions', options, (res) => {
+      resolve(res)
+    })
   })
 }
 

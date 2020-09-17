@@ -1,13 +1,10 @@
-const backBlock = function(res) {
+const backBlock = (res) => {
   if(res) {
     let response = JSON.parse(res)
-    if(response.err === 0) {
-      return Promise.resolve(response.message)
-    }else {
-      return Promise.reject(response.message)
-    }
+    return response.message
   }else {
-    return Promise.resolve('')
+    return ''
   }
 }
+
 exports.default = backBlock

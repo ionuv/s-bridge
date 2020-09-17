@@ -32,13 +32,17 @@ var isMobile = function isMobile() {
 };
 
 var asyncIsMobile = function asyncIsMobile() {
-  dsBridge.call('isMobile', function (res) {
-    if (res) {
-      var response = JSON.parse(res);
-      return Promise.resolve(response.err);
-    } else {
-      return Promise.resolve(-1);
-    }
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('isMobile', function (res) {
+      if (res) {
+        var response = JSON.parse(res);
+        // return Promise.resolve(response.err)
+        resolve(response.err);
+      } else {
+        // return Promise.resolve(-1)
+        resolve(-1);
+      }
+    });
   });
 };
 
@@ -55,8 +59,19 @@ var getItem = function getItem(key) {
 
 // 异步获取原生数据
 var asyncGetItem = function asyncGetItem(key) {
-  dsBridge.call('getItem', key, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('getItem', key, function (res) {
+      if (res) {
+        var response = JSON.parse(res);
+        if (response) {
+          resolve(response);
+        } else {
+          resolve(res);
+        }
+      } else {
+        resolve('');
+      }
+    });
   });
 };
 
@@ -67,8 +82,10 @@ var setItem = function setItem(obj) {
 
 // 异步存储数据到原生
 var asyncSetItem = function asyncSetItem(obj) {
-  dsBridge.call('setItem', obj, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('setItem', obj, function (res) {
+      resolve(res);
+    });
   });
 };
 
@@ -79,8 +96,10 @@ var callPhone = function callPhone(mobile) {
 
 // 异步打电话
 var asyncCallPhone = function asyncCallPhone(mobile) {
-  dsBridge.call('callPhone', mobile, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('callPhone', mobile, function (res) {
+      resolve(res);
+    });
   });
 };
 
@@ -97,8 +116,19 @@ var getDeviceInfo = function getDeviceInfo() {
 
 // 异步获取设备信息
 var asyncGetDeviceInfo = function asyncGetDeviceInfo() {
-  dsBridge.call('getDeviceInfo', function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('getDeviceInfo', function (res) {
+      if (res) {
+        var response = JSON.parse(res);
+        if (response) {
+          resolve(response);
+        } else {
+          resolve(res);
+        }
+      } else {
+        resolve({});
+      }
+    });
   });
 };
 
@@ -115,13 +145,19 @@ var getDeviceToken = function getDeviceToken() {
 
 // 异步推送的token
 var asyncGetDeviceToken = function asyncGetDeviceToken() {
-  dsBridge.call('getDeviceToken', function (res) {
-    if (res) {
-      var response = JSON.parse(res);
-      return Promise.resolve(response.deviceToken);
-    } else {
-      return Promise.resolve('');
-    }
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('getDeviceToken', function (res) {
+      if (res) {
+        var response = JSON.parse(res);
+        if (response) {
+          resolve(response.deviceToken);
+        } else {
+          resolve('');
+        }
+      } else {
+        resolve('');
+      }
+    });
   });
 };
 
@@ -138,8 +174,10 @@ var openFrame = function openFrame(url) {
 
 // 异步打开新的web页
 var asyncOpenFrame = function asyncOpenFrame(url) {
-  dsBridge.call('openFrame', url, function (res) {
-    backBlock(res);
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('openFrame', url, function (res) {
+      resolve(res);
+    });
   });
 };
 
@@ -156,13 +194,19 @@ var getParams = function getParams() {
 
 // 异步获取页面注入的参数
 var asyncGetParams = function asyncGetParams() {
-  dsBridge.call('getParams', function (res) {
-    if (res) {
-      var response = JSON.parse(res);
-      return Promise.resolve(response);
-    } else {
-      return Promise.resolve({});
-    }
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('getParams', function (res) {
+      if (res) {
+        var response = JSON.parse(res);
+        if (response) {
+          resolve(response);
+        } else {
+          resolve('');
+        }
+      } else {
+        resolve({});
+      }
+    });
   });
 };
 
@@ -171,10 +215,12 @@ var closeView = function closeView() {
   return dsBridge.call('closeView');
 };
 
-// 异步获取页面注入的参数
+// 异步关闭当前页面
 var asyncCloseView = function asyncCloseView() {
-  dsBridge.call('closeView', function (res) {
-    return Promise.resolve('');
+  return new Promise(function (resolve, reject) {
+    dsBridge.call('closeView', function (res) {
+      resolve('关闭成功');
+    });
   });
 };
 
@@ -184,6 +230,7 @@ module.exports = {
   registerAsyn: registerAsyn,
   isMobile: isMobile,
   asyncIsMobile: asyncIsMobile,
+  getItem: getItem,
   asyncGetItem: asyncGetItem,
   setItem: setItem,
   asyncSetItem: asyncSetItem,
