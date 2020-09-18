@@ -2,15 +2,17 @@
   "name": "s-bridge",
   "version": "1.0.10-0",
   "description": "基于dsBridge扩展的库",
-  "main": "index.js",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.mjs",
+  "unpkg": "dist/index.umd.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/ionuv/s-bridge.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src --presets babel-preset-es2015 --out-dir ./",
-    "prepublish": "npm run build"
+    "build": "microbundle src/index.js -f modern,umd",
+    "dev": "microbundle watch"
   },
   "keywords": [
     "dsBridge",
@@ -26,7 +28,6 @@
     "dsbridge": "^3.1.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "microbundle": "^0.12.3"
   }
 }
