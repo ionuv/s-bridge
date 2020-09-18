@@ -1,6 +1,6 @@
 {
   "name": "s-bridge",
-  "version": "1.0.11-0",
+  "version": "1.0.12-0",
   "description": "基于dsBridge扩展的库",
   "source": "src/index.ts",
   "main": "dist/index.js",
