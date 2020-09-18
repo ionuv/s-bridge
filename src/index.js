@@ -1,5 +1,6 @@
 import api from './api/index'
 import photo from './photo/index'
+import speech from './speech/index'
 
 export default class Bridge {
   /**
@@ -119,5 +120,15 @@ export default class Bridge {
   // 调起相册选择
   getPhotos(options) {
     return photo.getPhotos(options)
+  }
+
+  // 开始语音识别
+  startSpeech(options) {
+    return speech.startSpeech(options)
+  }
+
+  // 停止语音识别
+  stopSpeech() {
+    return speech.stopSpeech()
   }
 }
