@@ -1,7 +1,7 @@
-interface Bridge {
+declare class sbridge {
     hasNativeMethod(funcName: string, type?: ('all' | 'asyn' | 'syn')): boolean;
     register(name: string, fun: object | (() => any), asyn?: boolean): void;
-    registerAsyn(name: string, fun: object | (() => void)): void;
+    registerAsyn(name: string, fun: object | (() => void)): any;
     isMobile(): number;
     asyncIsMobile(): any;
     getItem(key: string): any;
@@ -23,5 +23,4 @@ interface Bridge {
     takePhoto(options?: object): any;
     getPhotos(options?: object): any;
 }
-declare const Bridge: Bridge;
-export default Bridge;
+export default sbridge;

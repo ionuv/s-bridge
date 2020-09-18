@@ -1,5 +1,5 @@
-const api = require('./api/index')
-const photo = require('./photo/index')
+import api from './api/index'
+import photo from './photo/index'
 
 export default class Bridge {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class Bridge {
   /******** js不支持重载 所以不支持同名的同异步方法的注册*******/
   // 注册同步方法给原生调用
   register(name, fun, asyn) {
-    return api.register(name, fun, asyn)
+    api.register(name, fun, asyn)
   }
   
   // js注册异步方法

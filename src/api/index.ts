@@ -1,17 +1,17 @@
 import dsBridge from 'dsbridge'
 
 // 检测原生是否存在该方法
-const hasNativeMethod = (funcName, type) => {
+const hasNativeMethod = (funcName: string, type?: ('all' | 'asyn' | 'syn')) => {
   return dsBridge.hasNativeMethod(funcName, type)
 }
 
 // js注册同步方法
-const register = (name, fun, asyn) => {
+const register = (name: string, fun: object | (() => any), asyn?: boolean) => {
   dsBridge.register(name, fun, asyn)
 }
 
 // js注册异步方法
-const registerAsyn = (name, fun) => {
+const registerAsyn = (name: string, fun: object | (() => void)) => {
   dsBridge.registerAsyn(name, fun)
 }
 
@@ -42,7 +42,7 @@ const asyncIsMobile = () => {
 }
 
 // 同步获取原生数据
-const getItem = (key) => {
+const getItem = (key: string) => {
   let res = dsBridge.call('getItem',key)
   if(res) {
     let response = JSON.parse(res)
@@ -53,7 +53,7 @@ const getItem = (key) => {
 }
 
 // 异步获取原生数据
-const asyncGetItem = (key) => {
+const asyncGetItem = (key: string) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getItem',key, (res) => {
       if(res) {
@@ -66,12 +66,12 @@ const asyncGetItem = (key) => {
 }
 
 // 同步存储数据到原生
-const setItem = (obj) => {
+const setItem = (obj: object) => {
   return dsBridge.call('setItem', obj)
 }
 
 // 异步存储数据到原生
-const asyncSetItem = (obj) => {
+const asyncSetItem = (obj: object) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('setItem', obj, (res) => {
       resolve(res)
@@ -80,12 +80,12 @@ const asyncSetItem = (obj) => {
 }
 
 // 同步打电话
-const callPhone = (mobile) => {
+const callPhone = (mobile: (string | number)) => {
   return dsBridge.call('callPhone', mobile)
 }
 
 // 异步打电话
-const asyncCallPhone = (mobile) => {
+const asyncCallPhone = (mobile: (string | number)) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('callPhone', mobile, (res) => {
       resolve(res)
@@ -146,7 +146,7 @@ const asyncGetDeviceToken = () => {
 }
 
 // 打开新的web页
-const openFrame = (url) => {
+const openFrame = (url: string) => {
   let res = dsBridge.call('openFrame', url)
   if(res) {
     let response = JSON.parse(res)
@@ -157,7 +157,7 @@ const openFrame = (url) => {
 }
 
 // 异步打开新的web页
-const asyncOpenFrame = (url) => {
+const asyncOpenFrame = (url: string) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('openFrame', url, (res) => {
       resolve(res)
@@ -202,7 +202,7 @@ const closeView = () => {
 // 异步关闭当前页面
 const asyncCloseView = () => {
   return new Promise((resolve, reject) => {
-    dsBridge.call('closeView', (res) => {
+    dsBridge.call('closeView', () => {
       resolve(JSON.stringify({err: 0,message: '关闭成功'}))
     })
   })

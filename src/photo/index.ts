@@ -1,7 +1,7 @@
 import dsBridge from 'dsbridge'
 
 // 拍照
-const takePhoto = (options) => {
+const takePhoto = (options: object) => {
   if(typeof(options) === 'object') {
     options['type'] = 'camera'
     return photoswithOptions(options)
@@ -11,7 +11,7 @@ const takePhoto = (options) => {
 }
 
 // 打开相册获取图片
-const getPhotos = (options) => {
+const getPhotos = (options: object) => {
   if(typeof(options) === 'object') {
     options['type'] = 'photo'
     return photoswithOptions(options)
@@ -21,7 +21,7 @@ const getPhotos = (options) => {
 }
 
 // 默认参数调起相机或者相册
-const photos = (type) => {
+const photos = (type: string) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('b.photos', type, (res) => {
       resolve(res)
@@ -29,7 +29,7 @@ const photos = (type) => {
   })
 }
 
-const photoswithOptions = (options) => {
+const photoswithOptions = (options: object) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('b.photoswithOptions', options, (res) => {
       resolve(res)
