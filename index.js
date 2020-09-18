@@ -62,12 +62,7 @@ var asyncGetItem = function asyncGetItem(key) {
   return new Promise(function (resolve, reject) {
     dsBridge.call('getItem', key, function (res) {
       if (res) {
-        var response = JSON.parse(res);
-        if (response) {
-          resolve(response);
-        } else {
-          resolve(res);
-        }
+        resolve(res);
       } else {
         resolve('');
       }
@@ -107,8 +102,7 @@ var asyncCallPhone = function asyncCallPhone(mobile) {
 var getDeviceInfo = function getDeviceInfo() {
   var res = dsBridge.call('getDeviceInfo');
   if (res) {
-    var response = JSON.parse(res);
-    return response;
+    return res;
   } else {
     return {};
   }
@@ -119,12 +113,7 @@ var asyncGetDeviceInfo = function asyncGetDeviceInfo() {
   return new Promise(function (resolve, reject) {
     dsBridge.call('getDeviceInfo', function (res) {
       if (res) {
-        var response = JSON.parse(res);
-        if (response) {
-          resolve(response);
-        } else {
-          resolve(res);
-        }
+        resolve(res);
       } else {
         resolve({});
       }
@@ -201,7 +190,7 @@ var asyncGetParams = function asyncGetParams() {
         if (response) {
           resolve(response);
         } else {
-          resolve('');
+          resolve({});
         }
       } else {
         resolve({});
@@ -219,7 +208,7 @@ var closeView = function closeView() {
 var asyncCloseView = function asyncCloseView() {
   return new Promise(function (resolve, reject) {
     dsBridge.call('closeView', function (res) {
-      resolve('关闭成功');
+      resolve(JSON.stringify({ err: 0, message: '关闭成功' }));
     });
   });
 };

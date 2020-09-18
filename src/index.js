@@ -60,12 +60,7 @@ const asyncGetItem = (key) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getItem',key, (res) => {
       if(res) {
-        let response = JSON.parse(res)
-        if(response) {
-          resolve(response)
-        }else {
-          resolve(res)
-        }
+        resolve(res)
       }else {
         resolve('')
       }
@@ -105,8 +100,7 @@ const asyncCallPhone = (mobile) => {
 const getDeviceInfo = () => {
   let res = dsBridge.call('getDeviceInfo')
   if(res) {
-    let response = JSON.parse(res)
-    return response
+    return res
   }else {
     return {}
   }
@@ -117,12 +111,7 @@ const asyncGetDeviceInfo = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getDeviceInfo', (res) => {
       if(res) {
-        let response = JSON.parse(res)
-        if(response) {
-          resolve(response)
-        }else {
-          resolve(res)
-        }
+        resolve(res)
       }else {
         resolve({})
       }
@@ -199,7 +188,7 @@ const asyncGetParams = () => {
         if(response) {
           resolve(response)
         }else {
-          resolve('')
+          resolve({})
         }
       }else{
         resolve({})
@@ -217,7 +206,7 @@ const closeView = () => {
 const asyncCloseView = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('closeView', (res) => {
-      resolve('关闭成功')
+      resolve(JSON.stringify({err: 0,message: '关闭成功'}))
     })
   })
 }
