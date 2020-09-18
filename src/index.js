@@ -2,11 +2,6 @@ import api from './api/index'
 import photo from './photo/index'
 
 export default class Bridge {
-  constructor(props) {
-    if(props) {
-
-    }
-  }
   /**
    * 判断原生是否有该方法
    * funcName: 需要判断的方法名,可以包含命名空间

@@ -10,27 +10,28 @@ npm install s-bridge
 // var Bridge = require("s-bridge")
 //app.js直接引入
 import Bridge from 's-bridge'
+Vue.prototype.$sbridge = new Bridge()
 ```
 
 **备注:**
 >大部分的方法均支持同异步,格式如下：
 ```js
 // 同步调用方法
-let deviceInfo = Bridge.getDeviceInfo()
+let deviceInfo = this.$sbridge.getDeviceInfo()
 alert(deviceInfo)
 
 // 异步调用方法
-Bridge.asyncGetDeviceInfo().then(res => {
+this.$sbridge.asyncGetDeviceInfo().then(res => {
   alert(res)
 })
 ```
 **方法调用**  
 >1.判断当前设备环境 0真机 1模拟器 -1未知设备
 ```js
-let env = Bridge.isMobile()
+let env = this.$sbridge.isMobile()
 console.log(env, '当前环境')
 
-Bridge.asyncIsMobile().then(res => {
+this.$sbridge.asyncIsMobile().then(res => {
   console.log(res,'当前环境')
 })
 ```
@@ -46,30 +47,30 @@ let obj = {
   key4: []
 }
 
-let res = Bridge.setItem(obj)
+let res = this.$sbridge.setItem(obj)
 console.log(res,'存储数据返回消息')
 
-Bridge.asyncSetItem(obj).then(res => {
+this.$sbridge.asyncSetItem(obj).then(res => {
   console.log(res,'存储数据返回消息')
 })
 ```
 
 >3.获取存储到原生设备的数据
 ```js
-let res = Bridge.getItem('key1')
+let res = this.$sbridge.getItem('key1')
 console.log(res, '获取原生数据')
 
-Bridge.asyncGetItem('key1').then(res => {
+this.$sbridge.asyncGetItem('key1').then(res => {
   alert(res, '获取原生数据')
 })
 ```
 
 >4.打电话
 ```js
-let res = Bridge.callPhone('13838384382')
+let res = this.$sbridge.callPhone('13838384382')
 console.log(res, '调起打电话')
 
-Bridge.asyncCallPhone('13838384382').then(res => {
+this.$sbridge.asyncCallPhone('13838384382').then(res => {
   console.log(res, '调起打电话')
 })
 ```
@@ -85,20 +86,20 @@ Bridge.asyncCallPhone('13838384382').then(res => {
  * name 设备名称(用户自定义手机名)
  * localizedModel 模型
 */
-let deviceInfo = Bridge.getDeviceInfo()
+let deviceInfo = this.$sbridge.getDeviceInfo()
 console.log(deviceInfo, '设备信息')
 
-Bridge.asyncGetDeviceInfo().then(res => {
+this.$sbridge.asyncGetDeviceInfo().then(res => {
   console.log(deviceInfo, '设备信息')
 })
 ```
 
 >6.获取推送的deviceToken
 ```js
-let token = Bridge.getDeviceToken()
+let token = this.$sbridge.getDeviceToken()
 console.log(token, '获取设备token')
 
-Bridge.asyncGetDeviceToken().then(res => {
+this.$sbridge.asyncGetDeviceToken().then(res => {
   alert('获取设备token：' + res)
 })
 ```
@@ -114,19 +115,19 @@ Bridge.asyncGetDeviceToken().then(res => {
  * 
  * 保证原生项目根目录下存在该协议名称的目录
  * */ 
-Bridge.openFrame('http://www.baidu.com')
+this.$sbridge.openFrame('http://www.baidu.com')
 
-Bridge.asyncOpenFrame('weight://index.html').then(res => {
+this.$sbridge.asyncOpenFrame('weight://index.html').then(res => {
   console.log(res,'返回消息')
 })
 ```
 
 >8.获取打开web页时原生注入到页面的参数
 ```js
-let params = Bridge.getParams()
+let params = this.$sbridge.getParams()
 console.log(res, '原生注入到当前页的参数列表')
 
-Bridge.asyncGetParams(]).then(res => {
+this.$sbridge.asyncGetParams(]).then(res => {
   console.log(res,'原生注入到当前页的参数列表')
 })
 ```
@@ -134,9 +135,9 @@ Bridge.asyncGetParams(]).then(res => {
 >9.关闭当前web页
 ```js
 // 若当前web页为原生的根视图,则关闭无效
-Bridge.asyncCloseView()
+this.$sbridge.asyncCloseView()
 
-Bridge.asyncCloseView().then(res => {
+this.$sbridge.asyncCloseView().then(res => {
   console.log(res, '关闭页面')
 })
 ```
@@ -151,7 +152,7 @@ Bridge.asyncCloseView().then(res => {
  *   saveNewImageAfterEdit: true|false
  * }
 */
-Bridge.photo.takePhoto().then(res => {
+this.$sbridge.takePhoto().then(res => {
   let response = JSON.parse(res)
   let images = response.message
   console.log(images,'图片源数组')
@@ -170,7 +171,7 @@ Bridge.photo.takePhoto().then(res => {
  *   saveNewImageAfterEdit: true|false
  * }
 */
-Bridge.photo.getPhotos({
+this.$sbridge.getPhotos({
   maxSelectCount:2
 }).then(res => {
   let response = JSON.parse(res)
