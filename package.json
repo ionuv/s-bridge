@@ -1,6 +1,6 @@
 {
   "name": "s-bridge",
-  "version": "1.0.12-0",
+  "version": "1.0.13-0",
   "description": "基于dsBridge扩展的库",
   "source": "src/index.js",
   "main": "dist/index.js",
@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "babel src --presets babel-preset-es2015 --out-dir ./dist",
-    "copy:ts":"cp src/index.js dist/index.ts",
+    "copy:ts": "cp src/index.js dist/index.ts",
     "build:d.ts": "tsc --declaration dist/index.ts",
     "prepublish": "concurrently \"npm run build\" \"npm run copy:ts\" \"npm run build:d.ts\""
   },
