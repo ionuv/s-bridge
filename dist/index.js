@@ -1,2 +1,109 @@
-var n,e=(n=require("dsbridge"))&&"object"==typeof n&&"default"in n?n.default:n,t=function(n){return new Promise(function(t,r){e.call("b.photos",n,function(n){t(n)})})},r=function(n){return new Promise(function(t,r){e.call("b.photoswithOptions",n,function(n){t(n)})})};module.exports=function(){function n(){}var o=n.prototype;return o.hasNativeMethod=function(n,t){return function(n,t){return e.hasNativeMethod(n,t)}(n,t)},o.register=function(n,t,r){!function(n,t,r){e.register(n,t,r)}(n,t,r)},o.registerAsyn=function(n,t){return function(n,t){e.registerAsyn(n,t)}(n,t)},o.isMobile=function(){return(n=e.call("isMobile"))?JSON.parse(n).err:-1;var n},o.asyncIsMobile=function(){return new Promise(function(n,t){e.call("isMobile",function(e){if(e){var t=JSON.parse(e);n(t.err)}else n(-1)})})},o.getItem=function(n){return function(n){var t=e.call("getItem",n);return t?JSON.parse(t).message:""}(n)},o.asyncGetItem=function(n){return function(n){return new Promise(function(t,r){e.call("getItem",n,function(n){t(n||"")})})}(n)},o.setItem=function(n){return function(n){return e.call("setItem",n)}(n)},o.asyncSetItem=function(n){return function(n){return new Promise(function(t,r){e.call("setItem",n,function(n){t(n)})})}(n)},o.callPhone=function(n){return function(n){return e.call("callPhone",n)}(n)},o.asyncCallPhone=function(n){return function(n){return new Promise(function(t,r){e.call("callPhone",n,function(n){t(n)})})}(n)},o.getDeviceInfo=function(){return e.call("getDeviceInfo")||{}},o.asyncGetDeviceInfo=function(){return new Promise(function(n,t){e.call("getDeviceInfo",function(e){n(e||{})})})},o.getDeviceToken=function(){return(n=e.call("getDeviceToken"))?JSON.parse(n).deviceToken:"";var n},o.asyncGetDeviceToken=function(){return new Promise(function(n,t){e.call("getDeviceToken",function(e){if(e){var t=JSON.parse(e);n(t?t.deviceToken:"")}else n("")})})},o.openFrame=function(n){return function(n){var t=e.call("openFrame",n);return t?JSON.parse(t).message:""}(n)},o.asyncOpenFrame=function(n){return function(n){return new Promise(function(t,r){e.call("openFrame",n,function(n){t(n)})})}(n)},o.getParams=function(){return(n=e.call("getParams"))?JSON.parse(n):{};var n},o.asyncGetParams=function(){return new Promise(function(n,t){e.call("getParams",function(e){if(e){var t=JSON.parse(e);n(t||{})}else n({})})})},o.closeView=function(){return e.call("closeView")},o.asyncCloseView=function(){return new Promise(function(n,t){e.call("closeView",function(e){n(JSON.stringify({err:0,message:"关闭成功"}))})})},o.takePhoto=function(n){return function(n){return"object"==typeof n?(n.type="camera",r(n)):t("camera")}(n)},o.getPhotos=function(n){return function(n){return"object"==typeof n?(n.type="photo",r(n)):t("photo")}(n)},n}();
-//# sourceMappingURL=index.js.map
+"use strict";
+exports.__esModule = true;
+var index_1 = require("./api/index");
+var index_2 = require("./photo/index");
+var Bridge = /** @class */ (function () {
+    function Bridge(props) {
+        if (props) {
+        }
+    }
+    /**
+     * 判断原生是否有该方法
+     * funcName: 需要判断的方法名,可以包含命名空间
+     * type: 可选参数，["all"|"syn"|"asyn" ], 默认是 "all".
+    */
+    Bridge.prototype.hasNativeMethod = function (funcName, type) {
+        return index_1["default"].hasNativeMethod(funcName, type);
+    };
+    /******** js不支持重载 所以不支持同名的同异步方法的注册*******/
+    // 注册同步方法给原生调用
+    Bridge.prototype.register = function (name, fun, asyn) {
+        index_1["default"].register(name, fun, asyn);
+    };
+    // js注册异步方法
+    Bridge.prototype.registerAsyn = function (name, fun) {
+        return index_1["default"].registerAsyn(name, fun);
+    };
+    // 判断设备是否是真机 -1未知设备 0真机 1模拟器
+    Bridge.prototype.isMobile = function () {
+        return index_1["default"].isMobile();
+    };
+    // 判断设备是否是真机 -1未知设备 0真机 1模拟器
+    Bridge.prototype.asyncIsMobile = function () {
+        return index_1["default"].asyncIsMobile();
+    };
+    // 同步获取原生数据
+    Bridge.prototype.getItem = function (key) {
+        return index_1["default"].getItem(key);
+    };
+    // 异步获取原生数据
+    Bridge.prototype.asyncGetItem = function (key) {
+        return index_1["default"].asyncGetItem(key);
+    };
+    // 同步存储数据到原生
+    Bridge.prototype.setItem = function (obj) {
+        return index_1["default"].setItem(obj);
+    };
+    // 异步存储数据到原生
+    Bridge.prototype.asyncSetItem = function (obj) {
+        return index_1["default"].asyncSetItem(obj);
+    };
+    // 同步打电话
+    Bridge.prototype.callPhone = function (mobile) {
+        return index_1["default"].callPhone(mobile);
+    };
+    // 异步打电话
+    Bridge.prototype.asyncCallPhone = function (mobile) {
+        return index_1["default"].asyncCallPhone(mobile);
+    };
+    // 获取设备信息
+    Bridge.prototype.getDeviceInfo = function () {
+        return index_1["default"].getDeviceInfo();
+    };
+    // 异步获取设备信息
+    Bridge.prototype.asyncGetDeviceInfo = function () {
+        return index_1["default"].asyncGetDeviceInfo();
+    };
+    // 获取推送的token
+    Bridge.prototype.getDeviceToken = function () {
+        return index_1["default"].getDeviceToken();
+    };
+    // 异步推送的token
+    Bridge.prototype.asyncGetDeviceToken = function () {
+        return index_1["default"].asyncGetDeviceToken();
+    };
+    // 打开新的web页
+    Bridge.prototype.openFrame = function (url) {
+        return index_1["default"].openFrame(url);
+    };
+    // 异步打开新的web页
+    Bridge.prototype.asyncOpenFrame = function (url) {
+        return index_1["default"].asyncOpenFrame(url);
+    };
+    // 获取页面注入的参数
+    Bridge.prototype.getParams = function () {
+        return index_1["default"].getParams();
+    };
+    // 异步获取页面注入的参数
+    Bridge.prototype.asyncGetParams = function () {
+        return index_1["default"].asyncGetParams();
+    };
+    // 关闭当前页面
+    Bridge.prototype.closeView = function () {
+        return index_1["default"].closeView();
+    };
+    // 异步关闭当前页面
+    Bridge.prototype.asyncCloseView = function () {
+        return index_1["default"].asyncCloseView();
+    };
+    // 调起拍照
+    Bridge.prototype.takePhoto = function (options) {
+        return index_2["default"].takePhoto(options);
+    };
+    // 调起相册选择
+    Bridge.prototype.getPhotos = function (options) {
+        return index_2["default"].getPhotos(options);
+    };
+    return Bridge;
+}());
+exports["default"] = Bridge;
