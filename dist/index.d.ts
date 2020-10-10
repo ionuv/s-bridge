@@ -26,6 +26,8 @@ export default class Bridge {
     asyncGetParams(): any;
     closeView(): any;
     asyncCloseView(): any;
+    getStatusHeight(): any;
+    asyncGetStatusHeight(): any;
     takePhoto(options: any): any;
     getPhotos(options: any): any;
     startSpeech(options: any): any;

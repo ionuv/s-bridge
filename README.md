@@ -135,7 +135,7 @@ this.$sbridge.asyncGetParams(]).then(res => {
 >9.关闭当前web页
 ```js
 // 若当前web页为原生的根视图,则关闭无效
-this.$sbridge.asyncCloseView()
+this.$sbridge.closeView()
 
 this.$sbridge.asyncCloseView().then(res => {
   console.log(res, '关闭页面')
@@ -177,5 +177,48 @@ this.$sbridge.getPhotos({
   let response = JSON.parse(res)
   let images = response.message
   console.log(images,'图片源数组')
+})
+```
+>12.调起语音识别
+```js
+// options暂未定义
+this.$sbridge.startSpeech().then(res => {
+  console.log(res,'语音识别结果')
+})
+```
+>13.关闭语音识别
+```js
+this.$sbridge.stopSpeech()
+
+this.$sbridge.stopSpeech().then(res => {
+  console.log(res,'关闭语音识别')
+})
+```
+>14.获取原生状态栏导航栏等高度
+```js
+/*
+response.message = {
+  //状态栏高度
+  "StatusBarHeight",
+  //导航栏高度
+  "NavBarHeight",
+  //状态栏和导航栏总高度
+  "NavBarAndStatusBarHeight",
+  //TabBar高度
+  "TabBarHeight",
+  //顶部安全区域远离高度
+  "TopBarSafeHeight",
+  //底部安全区域远离高度
+  "BottomSafeHeight",
+  //iPhoneX的状态栏高度差值
+  "TopBarDifHeight",
+  //导航条和Tabbar总高度
+  "NavAndTabHeight",
+}
+*/
+this.$sbridge.getStatusHeight()
+
+this.$sbridge.asyncGetStatusHeight().then(res => {
+  console.log(res,'返回高度')
 })
 ```

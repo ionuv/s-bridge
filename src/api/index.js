@@ -208,6 +208,25 @@ const asyncCloseView = () => {
   })
 }
 
+// 获取原生状态栏导航栏等高度
+const getStatusHeight = () => {
+  return dsBridge.call('getStatusHeight')
+}
+
+// 异步获取原生状态栏导航栏等高度
+const asyncGetStatusHeight = () => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('getStatusHeight', (res) => {
+      let response = JSON.parse(res)
+      if(response) {
+        resolve(response)
+      }else {
+        resolve({})
+      }
+    })
+  })
+}
+
 const bridge = {
   hasNativeMethod,
   register,
@@ -229,7 +248,9 @@ const bridge = {
   getParams,
   asyncGetParams,
   closeView,
-  asyncCloseView
+  asyncCloseView,
+  getStatusHeight,
+  asyncGetStatusHeight
 }
 
 export default bridge
