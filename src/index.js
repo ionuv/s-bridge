@@ -24,12 +24,12 @@ export default class Bridge {
   }
 
   // 判断设备是否是真机 -1未知设备 0真机 1模拟器
-  isMobile() {
-    return api.isMobile()
+  mobileType() {
+    return api.mobileType()
   }
   // 判断设备是否是真机 -1未知设备 0真机 1模拟器
-  asyncIsMobile() {
-    return api.asyncIsMobile()
+  asyncMobileType() {
+    return api.asyncMobileType()
   }
 
   // 同步获取原生数据
@@ -122,14 +122,37 @@ export default class Bridge {
     return api.asyncGetStatusHeight()
   }
 
+  // 获取当前加载web页的信息参数
+  getWebInfo() {
+    return api.getWebInfo()
+  }
+
+  // 异步获取当前加载web页的信息参数
+  asyncGetWebInfo() {
+    return api.asyncGetWebInfo()
+  }
+
+  // 异步更新当前web应用
+  asyncGetWebAppUpdate(obj) {
+    return api.asyncGetWebAppUpdate(obj)
+  }
+
   // 调起拍照
   takePhoto(options) {
-    return photo.takePhoto(options)
+    if(api.hasNativeMethod('takePhoto')) {
+      return api.takePhoto(options)
+    }else {
+      return photo.takePhoto(options)
+    }
   }
 
   // 调起相册选择
   getPhotos(options) {
-    return photo.getPhotos(options)
+    if(api.hasNativeMethod('getPhotos')) {
+      return api.getPhotos(options)
+    }else {
+      return photo.getPhotos(options)
+    }
   }
 
   // 开始语音识别

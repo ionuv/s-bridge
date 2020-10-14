@@ -1,5 +1,15 @@
 import dsBridge from 'dsbridge'
 
+// 处理原生返回的数据
+function result(res) {
+  if(res) {
+    let response = JSON.parse(res)
+    return response || {}
+  }else {
+    return {}
+  }
+}
+
 // 检测原生是否存在该方法
 const hasNativeMethod = (funcName, type) => {
   return dsBridge.hasNativeMethod(funcName, type)
@@ -15,28 +25,18 @@ const registerAsyn = (name, fun) => {
   dsBridge.registerAsyn(name, fun)
 }
 
-// 判断设备是否是真机 -1未知设备 0真机 1模拟器
-const isMobile = () => {
-  let res = dsBridge.call('isMobile')
-  if(res) {
-    let response = JSON.parse(res)
-    return response.err
-  }else {
-    return -1
-  }
+// 判断设备是否是真机 ios android other
+const mobileType = () => {
+  let res = dsBridge.call('mobileType')
+  let data = result(res).data || {}
+  return data.mobileType || 'other'
 }
 
-const asyncIsMobile = () => {
+const asyncMobileType = () => {
   return new Promise((resolve, reject) => {
-    dsBridge.call('isMobile', (res) => {
-      if(res) {
-        let response = JSON.parse(res)
-        // return Promise.resolve(response.err)
-        resolve(response.err)
-      }else {
-        // return Promise.resolve(-1)
-        resolve(-1)
-      }
+    dsBridge.call('mobileType', (res) => {
+      let data = result(res).data || {}
+      resolve(data.mobileType || 'other')
     })
   })
 }
@@ -44,51 +44,46 @@ const asyncIsMobile = () => {
 // 同步获取原生数据
 const getItem = (key) => {
   let res = dsBridge.call('getItem',key)
-  if(res) {
-    let response = JSON.parse(res)
-    return response.message
-  }else {
-    return ''
-  }
+  let data = result(res).data || {}
+  return data[key] || ''
 }
 
 // 异步获取原生数据
 const asyncGetItem = (key) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getItem',key, (res) => {
-      if(res) {
-        resolve(res)
-      }else {
-        resolve('')
-      }
+      let data = result(res).data || {}
+      resolve(data[key] || '')
     })
   })
 }
 
 // 同步存储数据到原生
 const setItem = (obj) => {
-  return dsBridge.call('setItem', obj)
+  let res = dsBridge.call('setItem', obj)
+  return result(res)
 }
 
 // 异步存储数据到原生
 const asyncSetItem = (obj) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('setItem', obj, (res) => {
-      resolve(res)
+      resolve(result(res))
     })
   })
 }
 
 // 同步打电话
 const callPhone = (mobile) => {
-  return dsBridge.call('callPhone', mobile)
+  let res = dsBridge.call('callPhone', mobile)
+  return result(res)
 }
 
 // 异步打电话
 const asyncCallPhone = (mobile) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('callPhone', mobile, (res) => {
-      resolve(res)
+      resolve(result(res))
     })
   })
 }
@@ -96,22 +91,16 @@ const asyncCallPhone = (mobile) => {
 // 获取设备信息
 const getDeviceInfo = () => {
   let res = dsBridge.call('getDeviceInfo')
-  if(res) {
-    return res
-  }else {
-    return {}
-  }
+  let data = result(res).data || {}
+  return data
 }
 
 // 异步获取设备信息
 const asyncGetDeviceInfo = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getDeviceInfo', (res) => {
-      if(res) {
-        resolve(res)
-      }else {
-        resolve({})
-      }
+      let data = result(res).data || {}
+      resolve(data)
     })
   })
 }
@@ -119,28 +108,16 @@ const asyncGetDeviceInfo = () => {
 // 获取推送的token
 const getDeviceToken = () => {
   let res = dsBridge.call('getDeviceToken')
-  if(res) {
-    let response = JSON.parse(res)
-    return response.deviceToken
-  }else {
-    return ''
-  }
+  let data = result(res).data || {}
+  return data.deviceToken || ''
 }
 
 // 异步推送的token
 const asyncGetDeviceToken = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getDeviceToken', (res) => {
-      if(res) {
-        let response = JSON.parse(res)
-        if(response) {
-          resolve(response.deviceToken)
-        }else {
-          resolve('')
-        }
-      }else {
-        resolve('')
-      }
+      let data = result(res).data || {}
+      resolve(data.deviceToken || '')
     })
   })
 }
@@ -148,19 +125,14 @@ const asyncGetDeviceToken = () => {
 // 打开新的web页
 const openFrame = (url) => {
   let res = dsBridge.call('openFrame', url)
-  if(res) {
-    let response = JSON.parse(res)
-    return response.message
-  }else {
-    return ''
-  }
+  return result(res)
 }
 
 // 异步打开新的web页
-const asyncOpenFrame = (url) => {
+const asyncOpenFrame = (options) => {
   return new Promise((resolve, reject) => {
-    dsBridge.call('openFrame', url, (res) => {
-      resolve(res)
+    dsBridge.call('openFrame', options, (res) => {
+      resolve(result(res))
     })
   })
 }
@@ -168,61 +140,91 @@ const asyncOpenFrame = (url) => {
 // 获取页面注入的参数
 const getParams = () => {
   let res = dsBridge.call('getParams')
-  if(res) {
-    let response = JSON.parse(res)
-    return response
-  }else {
-    return {}
-  }
+  let data = result(res).data || {}
+  return data
 }
 
 // 异步获取页面注入的参数
 const asyncGetParams = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getParams', (res) => {
-      if(res) {
-        let response = JSON.parse(res)
-        if(response) {
-          resolve(response)
-        }else {
-          resolve({})
-        }
-      }else{
-        resolve({})
-      }
+      let data = result(res).data || {}
+      resolve(data)
     })
   })
 }
 
 // 关闭当前页面
 const closeView = () => {
-  return dsBridge.call('closeView')
+  let res = dsBridge.call('closeView')
+  return result(res)
 }
 
 // 异步关闭当前页面
 const asyncCloseView = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('closeView', (res) => {
-      resolve(JSON.stringify({err: 0,message: '关闭成功'}))
+      resolve(result(res))
     })
   })
 }
 
 // 获取原生状态栏导航栏等高度
 const getStatusHeight = () => {
-  return dsBridge.call('getStatusHeight')
+  let res = dsBridge.call('getStatusHeight')
+  let data = result(res).data || {}
+  return data
 }
 
 // 异步获取原生状态栏导航栏等高度
 const asyncGetStatusHeight = () => {
   return new Promise((resolve, reject) => {
     dsBridge.call('getStatusHeight', (res) => {
-      let response = JSON.parse(res)
-      if(response) {
-        resolve(response)
-      }else {
-        resolve({})
-      }
+      let data = result(res).data || {}
+      resolve(data)
+    })
+  })
+}
+// 获取当前加载web页的信息参数
+const getWebInfo = () => {
+  let res = dsBridge.call('getWebInfo')
+  let data = result(res).data || {}
+  return data
+}
+
+// 异步获取当前加载web页的信息参数
+const asyncGetWebInfo = () => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('getWebInfo', (res) => {
+      let data = result(res).data || {}
+      resolve(data)
+    })
+  })
+}
+
+// 异步更新当前web应用
+const asyncGetWebAppUpdate = (obj) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('getWebAppUpdate', obj, (res) => {
+      resolve(result(res))
+    })
+  })
+}
+
+// 拍照
+const takePhoto = (options) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('takePhoto', options, (res) => {
+      resolve(result(res))
+    })
+  })
+}
+
+// 打开相册获取图片
+const getPhotos = (options) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('getPhotos', options, (res) => {
+      resolve(result(res))
     })
   })
 }
@@ -231,8 +233,8 @@ const bridge = {
   hasNativeMethod,
   register,
   registerAsyn,
-  isMobile,
-  asyncIsMobile,
+  mobileType,
+  asyncMobileType,
   getItem,
   asyncGetItem,
   setItem,
@@ -250,7 +252,12 @@ const bridge = {
   closeView,
   asyncCloseView,
   getStatusHeight,
-  asyncGetStatusHeight
+  asyncGetStatusHeight,
+  getWebInfo,
+  asyncGetWebInfo,
+  asyncGetWebAppUpdate,
+  takePhoto,
+  getPhotos
 }
 
 export default bridge

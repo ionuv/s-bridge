@@ -7,7 +7,6 @@ npm方式安装初始化代码
 ```js
 npm install s-bridge  
 
-// var Bridge = require("s-bridge")
 //app.js直接引入
 import Bridge from 's-bridge'
 Vue.prototype.$sbridge = new Bridge()
@@ -25,13 +24,14 @@ this.$sbridge.asyncGetDeviceInfo().then(res => {
   alert(res)
 })
 ```
+
 **方法调用**  
->1.判断当前设备环境 0真机 1模拟器 -1未知设备
+> 1.判断当前设备环境 ios android other
 ```js
-let env = this.$sbridge.isMobile()
+let env = this.$sbridge.mobileType()
 console.log(env, '当前环境')
 
-this.$sbridge.asyncIsMobile().then(res => {
+this.$sbridge.asyncMobileType().then(res => {
   console.log(res,'当前环境')
 })
 ```
@@ -81,10 +81,10 @@ this.$sbridge.asyncCallPhone('13838384382').then(res => {
  * 返回的设备信息
  * systemVersion 系统版本 
  * systemName 系统名称  
- * model 设备类型
  * identifierForVendor 设备唯一码
  * name 设备名称(用户自定义手机名)
- * localizedModel 模型
+ * ip ip地址
+ * mac mac地址
 */
 let deviceInfo = this.$sbridge.getDeviceInfo()
 console.log(deviceInfo, '设备信息')
@@ -108,6 +108,13 @@ this.$sbridge.asyncGetDeviceToken().then(res => {
 ```js
 /**
  * openFrame参数支持如下：
+ * options = {
+ *  url, 访问地址
+ *  isHiddenNavigate, 是否隐藏导航栏 默认隐藏
+ *  title 导航栏标题
+ * }
+ * 
+ * url支持以下访问方式
  * 1.http://
  * 2.https://
  * 3.file:///
@@ -115,9 +122,9 @@ this.$sbridge.asyncGetDeviceToken().then(res => {
  * 
  * 保证原生项目根目录下存在该协议名称的目录
  * */ 
-this.$sbridge.openFrame('http://www.baidu.com')
+this.$sbridge.openFrame({url:'http://www.baidu.com'})
 
-this.$sbridge.asyncOpenFrame('weight://index.html').then(res => {
+this.$sbridge.asyncOpenFrame({url:'weight://index.html'}).then(res => {
   console.log(res,'返回消息')
 })
 ```
@@ -179,22 +186,7 @@ this.$sbridge.getPhotos({
   console.log(images,'图片源数组')
 })
 ```
->12.调起语音识别
-```js
-// options暂未定义
-this.$sbridge.startSpeech().then(res => {
-  console.log(res,'语音识别结果')
-})
-```
->13.关闭语音识别
-```js
-this.$sbridge.stopSpeech()
-
-this.$sbridge.stopSpeech().then(res => {
-  console.log(res,'关闭语音识别')
-})
-```
->14.获取原生状态栏导航栏等高度
+>12.获取原生状态栏导航栏等高度
 ```js
 /*
 response.message = {
@@ -220,5 +212,63 @@ this.$sbridge.getStatusHeight()
 
 this.$sbridge.asyncGetStatusHeight().then(res => {
   console.log(res,'返回高度')
+})
+```
+>13.获取当前加载web页的信息参数
+```js
+/*
+response.message = {
+  //appid
+  "appid",
+  //文件协议类型名
+  "agreement",
+  //app版本号
+  "appVersion",
+  //当前本地web环境版本号
+  "webVersion",
+}
+*/
+this.$sbridge.getWebInfo()
+
+this.$sbridge.asyncGetWebInfo().then(res => {
+  console.log(res,'返回web页的信息参数')
+})
+```
+>14.获取本地web资源更新
+```js
+/*
+仅支持本地文件加载方式更新
+  options = {
+    appVersion, app版本号
+    webVersion, web资源更新版本号
+    updateUrl,  web资源更新地址
+    isTips      是否弹框提示更新
+  }
+*/
+
+this.$sbridge.asyncGetAppUpdate({
+  appVersion: '1.0.0',
+  webVersion: '1.0.0',
+  updateUrl: 'http://www.baidu.com',
+  isTips: false
+}).then(res => {
+  console.log(res,'更新结果')
+})
+```
+
+##### `以下为可选项，请确认原生是否添加该功能`
+>15.调起语音识别
+```js
+// options暂未定义
+this.$sbridge.startSpeech().then(res => {
+  console.log(res,'语音识别结果')
+})
+```
+>16.关闭语音识别
+```js
+this.$sbridge.stopSpeech()
+
+this.$sbridge.stopSpeech().then(res => {
+  console.log(res,'关闭语音识别')
 })
 ```
