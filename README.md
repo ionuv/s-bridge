@@ -9,7 +9,7 @@ npm install s-bridge
 
 //app.js直接引入
 import Bridge from 's-bridge'
-Vue.prototype.$sbridge = new Bridge()
+Vue.prototype.$sbridge = Bridge
 ```
 
 **备注:**

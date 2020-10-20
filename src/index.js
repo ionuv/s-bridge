@@ -2,7 +2,7 @@ import api from '../src/api/index'
 import photo from '../src/photo/index'
 import speech from '../src/speech/index'
 
-export default class Bridge {
+class Bridge {
   /**
    * 判断原生是否有该方法
    * funcName: 需要判断的方法名,可以包含命名空间
@@ -165,3 +165,5 @@ export default class Bridge {
     return speech.stopSpeech()
   }
 }
+
+export default new Bridge()

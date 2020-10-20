@@ -1,4 +1,4 @@
-export default class Bridge {
+declare class Bridge {
     /**
      * 判断原生是否有该方法
      * funcName: 需要判断的方法名,可以包含命名空间
@@ -36,3 +36,5 @@ export default class Bridge {
     startSpeech(options: any): any;
     stopSpeech(): any;
 }
+declare const _default: Bridge;
+export default _default;
