@@ -229,6 +229,15 @@ const getPhotos = (options) => {
   })
 }
 
+// 打开二维码识别
+const asyncQrCodeIdentification = () => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('recognitionCode', (res) => {
+      resolve(result(res))
+    })
+  })
+}
+
 const bridge = {
   hasNativeMethod,
   register,
@@ -257,7 +266,8 @@ const bridge = {
   asyncGetWebInfo,
   asyncGetWebAppUpdate,
   takePhoto,
-  getPhotos
+  getPhotos,
+  asyncQrCodeIdentification
 }
 
 export default bridge

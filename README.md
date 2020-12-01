@@ -17,16 +17,16 @@ Vue.prototype.$sbridge = Bridge
 ```js
 // 同步调用方法
 let deviceInfo = this.$sbridge.getDeviceInfo()
-alert(deviceInfo)
+console.log(deviceInfo)
 
 // 异步调用方法
 this.$sbridge.asyncGetDeviceInfo().then(res => {
-  alert(res)
+  console.log(res)
 })
 ```
 
-**方法调用**  
-> 1.判断当前设备环境 ios android other
+##### `1.基础方法调用`
+> 1.1、判断当前设备环境 ios android other
 ```js
 let env = this.$sbridge.mobileType()
 console.log(env, '当前环境')
@@ -36,7 +36,7 @@ this.$sbridge.asyncMobileType().then(res => {
 })
 ```
 
->2.存储数据到原生设备
+>1.2、存储数据到原生设备
 ```js
 // double直接存储有可能会损失精度,建议转成字符存储
 let obj = {
@@ -55,17 +55,17 @@ this.$sbridge.asyncSetItem(obj).then(res => {
 })
 ```
 
->3.获取存储到原生设备的数据
+>1.3、获取存储到原生设备的数据
 ```js
 let res = this.$sbridge.getItem('key1')
 console.log(res, '获取原生数据')
 
 this.$sbridge.asyncGetItem('key1').then(res => {
-  alert(res, '获取原生数据')
+  console.log(res, '获取原生数据')
 })
 ```
 
->4.打电话
+>1.4、打电话
 ```js
 let res = this.$sbridge.callPhone('13838384382')
 console.log(res, '调起打电话')
@@ -75,7 +75,7 @@ this.$sbridge.asyncCallPhone('13838384382').then(res => {
 })
 ```
 
->5.获取设备信息
+>1.5、获取设备信息
 ```js
 /**
  * 返回的设备信息
@@ -94,17 +94,17 @@ this.$sbridge.asyncGetDeviceInfo().then(res => {
 })
 ```
 
->6.获取推送的deviceToken
+>1.6、获取推送的deviceToken
 ```js
 let token = this.$sbridge.getDeviceToken()
 console.log(token, '获取设备token')
 
 this.$sbridge.asyncGetDeviceToken().then(res => {
-  alert('获取设备token：' + res)
+  console.log('获取设备token：' + res)
 })
 ```
 
->7.打开新的web页面
+>1.7、打开新的web页面
 ```js
 /**
  * openFrame参数支持如下：
@@ -129,7 +129,7 @@ this.$sbridge.asyncOpenFrame({url:'weight://index.html'}).then(res => {
 })
 ```
 
->8.获取打开web页时原生注入到页面的参数
+>1.8、获取打开web页时原生注入到页面的参数
 ```js
 let params = this.$sbridge.getParams()
 console.log(res, '原生注入到当前页的参数列表')
@@ -139,7 +139,7 @@ this.$sbridge.asyncGetParams(]).then(res => {
 })
 ```
 
->9.关闭当前web页
+>1.9、关闭当前web页
 ```js
 // 若当前web页为原生的根视图,则关闭无效
 this.$sbridge.closeView()
@@ -149,7 +149,7 @@ this.$sbridge.asyncCloseView().then(res => {
 })
 ```
 
->10.调用原生相机拍照事件,以数组形式返回图片的base64码
+>1.10、调用原生相机拍照事件,以数组形式返回图片的base64码
 ```js
 /**
  * takePhoto(options)
@@ -166,7 +166,7 @@ this.$sbridge.takePhoto().then(res => {
 })
 ```
 
->11.调起原生相册事件,以数组形式返回图片的base64码
+>1.11、调起原生相册事件,以数组形式返回图片的base64码
 ```js
 /**
  * getPhotos(options)
@@ -186,7 +186,7 @@ this.$sbridge.getPhotos({
   console.log(images,'图片源数组')
 })
 ```
->12.获取原生状态栏导航栏等高度
+>1.12、获取原生状态栏导航栏等高度
 ```js
 /*
 response.message = {
@@ -214,7 +214,7 @@ this.$sbridge.asyncGetStatusHeight().then(res => {
   console.log(res,'返回高度')
 })
 ```
->13.获取当前加载web页的信息参数
+>1.13、获取当前加载web页的信息参数
 ```js
 /*
 response.message = {
@@ -234,7 +234,7 @@ this.$sbridge.asyncGetWebInfo().then(res => {
   console.log(res,'返回web页的信息参数')
 })
 ```
->14.获取本地web资源更新
+>1.14、获取本地web资源更新
 ```js
 /*
 仅支持本地文件加载方式更新
@@ -255,16 +255,24 @@ this.$sbridge.asyncGetAppUpdate({
   console.log(res,'更新结果')
 })
 ```
+>1.15、调起二维码识别
+```js
+this.$sbridge.qrCodeIdentification()
 
-##### `以下为可选项，请确认原生是否添加该功能`
->15.调起语音识别
+this.$sbridge.asyncQrCodeIdentification().then(res => {
+  console.log(res,'更新结果')
+})
+```
+
+##### `2.以下为可选项，请确认原生是否添加该功能`
+>2.1、调起语音识别
 ```js
 // options暂未定义
 this.$sbridge.startSpeech().then(res => {
   console.log(res,'语音识别结果')
 })
 ```
->16.关闭语音识别
+>2.2、关闭语音识别
 ```js
 this.$sbridge.stopSpeech()
 

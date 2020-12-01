@@ -35,6 +35,7 @@ declare class Bridge {
     getPhotos(options: any): any;
     startSpeech(options: any): any;
     stopSpeech(): any;
+    asyncQrCodeIdentification(): any;
 }
 declare const _default: Bridge;
 export default _default;

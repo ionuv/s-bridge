@@ -164,6 +164,11 @@ class Bridge {
   stopSpeech() {
     return speech.stopSpeech()
   }
+
+  // 异步二维码识别
+  asyncQrCodeIdentification() {
+    return api.asyncQrCodeIdentification()
+  }
 }
 
 export default new Bridge()
