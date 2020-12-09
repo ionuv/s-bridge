@@ -59,15 +59,15 @@ const asyncGetItem = (key) => {
 }
 
 // 同步存储数据到原生
-const setItem = (obj) => {
-  let res = dsBridge.call('setItem', obj)
+const setItem = (key, obj) => {
+  let res = dsBridge.call('setItem', { key: obj })
   return result(res)
 }
 
 // 异步存储数据到原生
-const asyncSetItem = (obj) => {
+const asyncSetItem = (key, obj) => {
   return new Promise((resolve, reject) => {
-    dsBridge.call('setItem', obj, (res) => {
+    dsBridge.call('setItem', {key: obj}, (res) => {
       resolve(result(res))
     })
   })

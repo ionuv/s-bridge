@@ -1,6 +1,7 @@
 import api from '../src/api/index'
 import photo from '../src/photo/index'
 import speech from '../src/speech/index'
+import moduleJump from '../src/moduleJump/index'
 
 class Bridge {
   /**
@@ -43,13 +44,13 @@ class Bridge {
   }
 
   // 同步存储数据到原生
-  setItem(obj) {
-    return api.setItem(obj)
+  setItem(key, obj) {
+    return api.setItem(key, obj)
   }
 
   // 异步存储数据到原生
-  asyncSetItem(obj) {
-    return api.asyncSetItem(obj)
+  asyncSetItem(key, obj) {
+    return api.asyncSetItem(key, obj)
   }
 
   // 同步打电话
@@ -168,6 +169,16 @@ class Bridge {
   // 异步二维码识别
   asyncQrCodeIdentification() {
     return api.asyncQrCodeIdentification()
+  }
+
+  // 新模块跳转老模块
+  newToOriginModule(pageName, direction, otherParams) {
+    return moduleJump.newToOriginModule(pageName, direction, otherParams)
+  }
+
+  // 老模块跳转新模块
+  originToNewModule(url, direction, otherParams) {
+    return moduleJump.originToNewModule(url, direction, otherParams)
   }
 }
 

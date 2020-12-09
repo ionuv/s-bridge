@@ -39,6 +39,12 @@ this.$sbridge.asyncMobileType().then(res => {
 >1.2、存储数据到原生设备
 ```js
 // double直接存储有可能会损失精度,建议转成字符存储
+
+/**
+ * setItem(key, value)
+ * 'key': String
+ * 'value': Object
+ */
 let obj = {
   key1: 1,
   key2: true,
@@ -47,10 +53,10 @@ let obj = {
   key4: []
 }
 
-let res = this.$sbridge.setItem(obj)
+let res = this.$sbridge.setItem('key1','value1')
 console.log(res,'存储数据返回消息')
 
-this.$sbridge.asyncSetItem(obj).then(res => {
+this.$sbridge.asyncSetItem('key2', obj).then(res => {
   console.log(res,'存储数据返回消息')
 })
 ```
@@ -161,7 +167,7 @@ this.$sbridge.asyncCloseView().then(res => {
 */
 this.$sbridge.takePhoto().then(res => {
   let response = JSON.parse(res)
-  let images = response.message
+  let images = response.data.images
   console.log(images,'图片源数组')
 })
 ```
@@ -169,6 +175,7 @@ this.$sbridge.takePhoto().then(res => {
 >1.11、调起原生相册事件,以数组形式返回图片的base64码
 ```js
 /**
+ * 不支持同步调用
  * getPhotos(options)
  * options:可选参数列表
  * {
@@ -182,7 +189,7 @@ this.$sbridge.getPhotos({
   maxSelectCount:2
 }).then(res => {
   let response = JSON.parse(res)
-  let images = response.message
+  let images = response..data.images
   console.log(images,'图片源数组')
 })
 ```
@@ -257,8 +264,7 @@ this.$sbridge.asyncGetAppUpdate({
 ```
 >1.15、调起二维码识别
 ```js
-this.$sbridge.qrCodeIdentification()
-
+// 不支持同步
 this.$sbridge.asyncQrCodeIdentification().then(res => {
   console.log(res,'更新结果')
 })
@@ -268,6 +274,7 @@ this.$sbridge.asyncQrCodeIdentification().then(res => {
 >2.1、调起语音识别
 ```js
 // options暂未定义
+// 不支持同步调用
 this.$sbridge.startSpeech().then(res => {
   console.log(res,'语音识别结果')
 })
@@ -279,4 +286,24 @@ this.$sbridge.stopSpeech()
 this.$sbridge.stopSpeech().then(res => {
   console.log(res,'关闭语音识别')
 })
+```
+##### `3.以下为可选模块`
+>3.1、新模块跳转到crm老模块中
+```js
+/**
+ * pageName: 跳转模块名称
+ * direction: push|pop 跳转方式
+ * params: 需要传递给老模块的参数列表 对象形式或者&key=value形式
+ */
+this.$sbridge.newToOriginModule('pageName','push','&key=value')
+```
+
+>3.2、crm老模块跳转到新模块中
+```js
+/**
+ * url: 新模块跳转的url
+ * direction: push|pop 跳转方式
+ * params: 需要传递给老模块的参数列表
+ */ 
+this.$sbridge.originToNewModule('url', 'push', {key: value})
 ```

@@ -11,12 +11,14 @@
   },
   "scripts": {
     "build": "webpack",
+    "demo": "sh ./src/build/index.sh",
     "copy:ts": "cp src/index.js dist/index.ts",
     "build:d.ts": "tsc --declaration dist/index.ts",
     "remove:ts": "rm -f dist/index.ts",
     "prepublish": "npm run copy:ts && npm run build:d.ts && npm run remove:ts && npm run build"
   },
   "keywords": [
+    "s-bridge",
     "dsBridge",
     "ios",
     "android"
@@ -27,6 +29,11 @@
     "url": "https://github.com/zlzkyuxin/"
   },
   "license": "ISC",
+  "files": [
+    "package.json",
+    "dist",
+    "README.md"
+  ],
   "dependencies": {
     "dsbridge": "^3.1.4"
   },

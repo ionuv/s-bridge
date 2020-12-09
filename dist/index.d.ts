@@ -12,8 +12,8 @@ declare class Bridge {
     asyncMobileType(): any;
     getItem(key: any): any;
     asyncGetItem(key: any): any;
-    setItem(obj: any): any;
-    asyncSetItem(obj: any): any;
+    setItem(key: any, obj: any): any;
+    asyncSetItem(key: any, obj: any): any;
     callPhone(mobile: any): any;
     asyncCallPhone(mobile: any): any;
     getDeviceInfo(): any;
@@ -36,6 +36,8 @@ declare class Bridge {
     startSpeech(options: any): any;
     stopSpeech(): any;
     asyncQrCodeIdentification(): any;
+    newToOriginModule(pageName: any, direction: any, otherParams: any): any;
+    originToNewModule(url: any, direction: any, otherParams: any): any;
 }
 declare const _default: Bridge;
 export default _default;
