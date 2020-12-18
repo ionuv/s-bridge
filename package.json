@@ -11,7 +11,6 @@
   },
   "scripts": {
     "build": "webpack",
-    "demo": "sh ./src/build/index.sh",
     "copy:ts": "cp src/index.js dist/index.ts",
     "build:d.ts": "tsc --declaration dist/index.ts",
     "remove:ts": "rm -f dist/index.ts",

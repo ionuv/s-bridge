@@ -2,13 +2,13 @@
  * @Author: Yu Xin
  * @Date: 2020-10-23 10:19:27
  * @LastEditors: Yu Xin
- * @LastEditTime: 2020-12-09 11:39:14
+ * @LastEditTime: 2020-12-19 00:40:01
  * @Description: file content
  */
 const path = require('path')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: {
     index: './src/index.js'
   },
