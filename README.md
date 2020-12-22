@@ -269,6 +269,17 @@ this.$sbridge.asyncQrCodeIdentification().then(res => {
   console.log(res,'更新结果')
 })
 ```
+>1.16、清空web端缓存
+```js
+/**
+ * option: web | file | all 当前需要清空缓存的资源类型 
+ */
+this.$sbridge.cleanCache(option)
+
+this.$sbridge.asyncCleanCache(option).then(res => {
+  console.log(res,'清空结果')
+})
+```
 
 ##### `2.以下为可选项，请确认原生是否添加该功能`
 >2.1、调起语音识别

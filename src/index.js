@@ -180,6 +180,16 @@ class Bridge {
   originToNewModule(url, direction, otherParams) {
     return moduleJump.originToNewModule(url, direction, otherParams)
   }
+
+  // 清空web缓存
+  cleanCache(key) {
+    return api.cleanCache(key)
+  }
+
+  // 异步清空web缓存
+  asyncCleanCache(key) {
+    return api.asyncCleanCache(key)
+  }
 }
 
 export default new Bridge()

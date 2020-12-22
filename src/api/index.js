@@ -242,6 +242,24 @@ const asyncQrCodeIdentification = () => {
   })
 }
 
+
+// 清空web缓存
+const cleanCache = (key) => {
+  let res = dsBridge.call('cleanCache', key)
+  let data = result(res).data || {}
+  return data
+}
+
+// 异步清空web缓存
+const asyncCleanCache = (key) => {
+  return new Promise((resolve, reject) => {
+    dsBridge.call('cleanCache', key, (res) => {
+      let data = result(res).data || {}
+      resolve(data)
+    })
+  })
+}
+
 const bridge = {
   hasNativeMethod,
   register,
@@ -271,7 +289,9 @@ const bridge = {
   asyncGetWebAppUpdate,
   takePhoto,
   getPhotos,
-  asyncQrCodeIdentification
+  asyncQrCodeIdentification,
+  cleanCache,
+  asyncCleanCache
 }
 
 export default bridge
