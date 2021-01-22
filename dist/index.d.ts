@@ -38,6 +38,8 @@ declare class Bridge {
     asyncQrCodeIdentification(): any;
     newToOriginModule(pageName: any, direction: any, otherParams: any): any;
     originToNewModule(url: any, direction: any, otherParams: any): any;
+    cleanCache(key: any): any;
+    asyncCleanCache(key: any): any;
 }
 declare const _default: Bridge;
 export default _default;

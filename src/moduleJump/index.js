@@ -2,7 +2,7 @@
  * @Author: Yu Xin
  * @Date: 2020-12-08 19:50:51
  * @LastEditors: Yu Xin
- * @LastEditTime: 2020-12-09 12:38:02
+ * @LastEditTime: 2021-01-22 09:50:09
  * @Description: file content
  */
 import dsBridge from 'dsbridge'
@@ -52,7 +52,7 @@ const originToNewModule = (url, direction = 'push', otherParams) => {
     notiClass.defaultCenter().postNotificationNameobject("originToNewModule", JSON.stringify(params));
   }
   if (isAndroid && android) {
-    window.android.originToNewModule(url, direction, otherParams)
+    window.android.originToNewModule(url, direction, JSON.stringify(otherParams))
   }
 }
 
