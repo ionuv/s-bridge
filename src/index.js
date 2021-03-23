@@ -186,6 +186,11 @@ class Bridge {
     return api.cleanCache(key)
   }
 
+  // 异步清空web缓存
+  asyncCleanCache(key) {
+    return api.asyncCleanCache(key)
+  }
+
   // 统一调用原生入口
   accessNative(name, userInfo) {
     return api.accessNative(name, userInfo)
