@@ -3,8 +3,12 @@ import dsBridge from 'dsbridge'
 // 处理原生返回的数据
 function result(res) {
   if(res) {
-    let response = JSON.parse(res)
-    return response || {}
+    if (typeof res == 'string') {
+      let response = JSON.parse(res)
+      return response || {}
+    }else {
+      return res
+    }
   }else {
     return {}
   }
@@ -242,7 +246,6 @@ const asyncQrCodeIdentification = () => {
   })
 }
 
-
 // 清空web缓存
 const cleanCache = (key) => {
   let res = dsBridge.call('cleanCache', key)
@@ -255,6 +258,24 @@ const asyncCleanCache = (key) => {
   return new Promise((resolve, reject) => {
     dsBridge.call('cleanCache', key, (res) => {
       let data = result(res).data || {}
+      resolve(data)
+    })
+  })
+}
+
+// 统一调用原生入口
+const accessNative = (name, userInfo = {})=> {
+  let res = dsBridge.call('accessNative', {name: name, userInfo: userInfo})
+  let data = result(res) || {}
+  return data
+}
+
+// 统一调用原生入口
+const asyncAccessNative = (name, userInfo = {}) => {
+  let request = {name: name, userInfo: userInfo}
+  return new Promise((resolve, reject) => {
+    dsBridge.call('accessNative', request, (res) => {
+      let data = result(res) || {}
       resolve(data)
     })
   })
@@ -291,7 +312,9 @@ const bridge = {
   getPhotos,
   asyncQrCodeIdentification,
   cleanCache,
-  asyncCleanCache
+  asyncCleanCache,
+  accessNative,
+  asyncAccessNative
 }
 
 export default bridge

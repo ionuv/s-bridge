@@ -24,6 +24,19 @@ this.$sbridge.asyncGetDeviceInfo().then(res => {
   console.log(res)
 })
 ```
+##### `0.通用交互方法`
+> 调用原生方法的通用入口 需与原生开发协商
+```js
+// 推荐使用异步方法 同步方法无返回信息
+/**
+ * 参数列表 (name, userInfo) 
+ * name: 调用原生方法名
+ * userInfo: 传入原生参数列表
+ */
+this.$sbridge.asyncAccessNative('Loginout', {'user': '示例', 'xx': 'xx'}).then(res => {
+  console.log(res,'调用Loginout回调')
+})
+```
 
 ##### `1.基础方法调用`
 > 1.1、判断当前设备环境 ios android other
