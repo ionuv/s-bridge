@@ -2,7 +2,7 @@
  * @Author: Yu Xin
  * @Date: 2020-12-08 19:50:51
  * @LastEditors: Yu Xin
- * @LastEditTime: 2021-01-22 09:50:09
+ * @LastEditTime: 2021-03-24 10:47:27
  * @Description: file content
  */
 import dsBridge from 'dsbridge'
@@ -15,7 +15,14 @@ const newToOriginModule = (pageName, direction = 'push', otherParams) => {
   }
   if (typeof otherParams === 'string') {
     if(/\&[\w\W]*=[\w\W]*/.test(otherParams)) {
-      params.otherParams = otherParams
+      let temp = otherParams.split('&')
+      for (const keyValues in temp) {
+        let ele = temp[keyValues]
+        if(ele) {
+          let keyValue = ele.split('=')
+          params.otherParams[keyValue[0]] = keyValue[1]
+        }
+      }
     }else {
       console.warn('otherParams类型与要求不符')
       return false

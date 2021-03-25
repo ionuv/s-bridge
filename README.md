@@ -293,6 +293,24 @@ this.$sbridge.asyncCleanCache(option).then(res => {
   console.log(res,'清空结果')
 })
 ```
+>1.16、跳转页面(用于替代模块3的功能)
+```js
+/**
+ * 参数列表
+ * url 跳转页面需要加载的url
+ * isHiddenNavigate 是否隐藏导航栏 true|false 默认true
+ * isHiddenTabbar 是否隐藏导航栏 true|false 默认true
+ * title 导航栏标题 isHiddenNavigate为true时展示
+ * direction 页面跳转方法 push|pop 默认为push
+ * params 新增到页面的参数列表
+ */
+this.$sbridge.jumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {})
+
+this.$sbridge.asyncJumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}).then(res => {
+  console.log(res,'清空结果')
+})
+```
+
 
 ##### `2.以下为可选项，请确认原生是否添加该功能`
 >2.1、调起语音识别

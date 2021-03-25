@@ -131,8 +131,8 @@ const asyncGetDeviceToken = () => {
 }
 
 // 打开新的web页
-const openFrame = (url) => {
-  let res = dsBridge.call('openFrame', url)
+const openFrame = (options) => {
+  let res = dsBridge.call('openFrame', options)
   return result(res)
 }
 
@@ -281,6 +281,39 @@ const asyncAccessNative = (name, userInfo = {}) => {
   })
 }
 
+// 跳转web页
+const jumpFrame = (url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {})=> {
+  let par = {
+    url: url, 
+    isHiddenNavigate: isHiddenNavigate,
+    isHiddenTabbar: isHiddenTabbar,
+    title: title,
+    direction: direction,
+    params: params
+  }
+  let res = dsBridge.call('jumpFrame', par)
+  let data = result(res) || {}
+  return data
+}
+
+// 异步跳转web页
+const asyncJumpFrame = (url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) => {
+  let par = {
+    url: url, 
+    isHiddenNavigate: isHiddenNavigate,
+    isHiddenTabbar: isHiddenTabbar,
+    title: title,
+    direction: direction,
+    params: params
+  }
+  return new Promise((resolve, reject) => {
+    dsBridge.call('jumpFrame', par, (res) => {
+      let data = result(res) || {}
+      resolve(data)
+    })
+  })
+}
+
 const bridge = {
   hasNativeMethod,
   register,
@@ -314,7 +347,9 @@ const bridge = {
   cleanCache,
   asyncCleanCache,
   accessNative,
-  asyncAccessNative
+  asyncAccessNative,
+  jumpFrame,
+  asyncJumpFrame
 }
 
 export default bridge

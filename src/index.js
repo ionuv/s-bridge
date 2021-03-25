@@ -200,6 +200,16 @@ class Bridge {
   asyncAccessNative(name, userInfo) {
     return api.asyncAccessNative(name, userInfo)
   }
+
+  // 跳转web页
+  jumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) {
+    return api.jumpFrame(url, isHiddenNavigate, isHiddenTabbar, title, direction, params)
+  }
+
+  // 跳转web页
+  asyncJumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) {
+    return api.asyncJumpFrame(url, isHiddenNavigate, isHiddenTabbar, title, direction, params)
+  }
 }
 
 export default new Bridge()
