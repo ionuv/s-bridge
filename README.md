@@ -298,15 +298,15 @@ this.$sbridge.asyncCleanCache(option).then(res => {
 /**
  * 参数列表
  * url 跳转页面需要加载的url
+ * params 新增到页面的参数列表
+ * direction 页面跳转方法 push|pop 默认为push (跳转或者返回)
+ * title 导航栏标题 isHiddenNavigate为true时展示
  * isHiddenNavigate 是否隐藏导航栏 true|false 默认true
  * isHiddenTabbar 是否隐藏导航栏 true|false 默认true
- * title 导航栏标题 isHiddenNavigate为true时展示
- * direction 页面跳转方法 push|pop 默认为push
- * params 新增到页面的参数列表
  */
-this.$sbridge.jumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {})
+this.$sbridge.jumpFrame('chose-customertype', {}, 'push', '标题栏')
 
-this.$sbridge.asyncJumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}).then(res => {
+this.$sbridge.asyncJumpFrame('https://www.baidu.com', {}, 'push', '标题栏').then(res => {
   console.log(res,'清空结果')
 })
 ```

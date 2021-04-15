@@ -39,8 +39,11 @@ declare class Bridge {
     newToOriginModule(pageName: any, direction: any, otherParams: any): any;
     originToNewModule(url: any, direction: any, otherParams: any): any;
     cleanCache(key: any): any;
+    asyncCleanCache(key: any): any;
     accessNative(name: any, userInfo: any): any;
     asyncAccessNative(name: any, userInfo: any): any;
+    jumpFrame(url: any, params?: {}, direction?: string, title?: string, isHiddenNavigate?: boolean, isHiddenTabbar?: boolean): any;
+    asyncJumpFrame(url: any, params?: {}, direction?: string, title?: string, isHiddenNavigate?: boolean, isHiddenTabbar?: boolean): any;
 }
 declare const _default: Bridge;
 export default _default;

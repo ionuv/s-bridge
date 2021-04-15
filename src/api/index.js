@@ -282,7 +282,7 @@ const asyncAccessNative = (name, userInfo = {}) => {
 }
 
 // 跳转web页
-const jumpFrame = (url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {})=> {
+const jumpFrame = (url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true)=> {
   let par = {
     url: url, 
     isHiddenNavigate: isHiddenNavigate,
@@ -297,7 +297,7 @@ const jumpFrame = (url, isHiddenNavigate = true, isHiddenTabbar = true, title = 
 }
 
 // 异步跳转web页
-const asyncJumpFrame = (url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) => {
+const asyncJumpFrame = (url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true) => {
   let par = {
     url: url, 
     isHiddenNavigate: isHiddenNavigate,

@@ -202,13 +202,13 @@ class Bridge {
   }
 
   // 跳转web页
-  jumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) {
-    return api.jumpFrame(url, isHiddenNavigate, isHiddenTabbar, title, direction, params)
+  jumpFrame(url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true) {
+    return api.jumpFrame(url, params, direction, title, isHiddenNavigate, isHiddenTabbar)
   }
 
   // 跳转web页
-  asyncJumpFrame(url, isHiddenNavigate = true, isHiddenTabbar = true, title = '', direction = 'push', params = {}) {
-    return api.asyncJumpFrame(url, isHiddenNavigate, isHiddenTabbar, title, direction, params)
+  asyncJumpFrame(url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true) {
+    return api.asyncJumpFrame(url, params, direction, title, isHiddenNavigate, isHiddenTabbar)
   }
 }
 
