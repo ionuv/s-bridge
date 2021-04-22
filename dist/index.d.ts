@@ -44,6 +44,7 @@ declare class Bridge {
     asyncAccessNative(name: any, userInfo: any): any;
     jumpFrame(url: any, params?: {}, direction?: string, title?: string, isHiddenNavigate?: boolean, isHiddenTabbar?: boolean): any;
     asyncJumpFrame(url: any, params?: {}, direction?: string, title?: string, isHiddenNavigate?: boolean, isHiddenTabbar?: boolean): any;
+    asyncLocation(showMap: any, title: any): any;
 }
 declare const _default: Bridge;
 export default _default;

@@ -284,7 +284,7 @@ const asyncAccessNative = (name, userInfo = {}) => {
 // 跳转web页
 const jumpFrame = (url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true)=> {
   let par = {
-    url: url, 
+    url: encodeURI(decodeURI(url)),
     isHiddenNavigate: isHiddenNavigate,
     isHiddenTabbar: isHiddenTabbar,
     title: title,
@@ -308,6 +308,20 @@ const asyncJumpFrame = (url, params = {}, direction = 'push', title = '', isHidd
   }
   return new Promise((resolve, reject) => {
     dsBridge.call('jumpFrame', par, (res) => {
+      let data = result(res) || {}
+      resolve(data)
+    })
+  })
+}
+
+// 异步跳转web页
+const asyncLocation = (showMap = false, title = '地图定位') => {
+  let par = {
+    showMap: showMap, 
+    title: title
+  }
+  return new Promise((resolve, reject) => {
+    dsBridge.call('location', par, (res) => {
       let data = result(res) || {}
       resolve(data)
     })
@@ -349,7 +363,8 @@ const bridge = {
   accessNative,
   asyncAccessNative,
   jumpFrame,
-  asyncJumpFrame
+  asyncJumpFrame,
+  asyncLocation
 }
 
 export default bridge

@@ -310,6 +310,19 @@ this.$sbridge.asyncJumpFrame('https://www.baidu.com', {}, 'push', '标题栏').t
   console.log(res,'清空结果')
 })
 ```
+>1.17、调起地图定位
+```js
+/**
+ * 参数列表
+ * showMap 是否显示地图 默认false
+ * title 显示地图时的标题栏 
+ * @retrun 返回gcj02和bd坐标
+ */
+
+this.$sbridge.asyncLocation(true, '地图定位').then(res => {
+  console.log(res, '地图定位坐标点及地址')
+})
+```
 
 
 ##### `2.以下为可选项，请确认原生是否添加该功能`

@@ -210,6 +210,10 @@ class Bridge {
   asyncJumpFrame(url, params = {}, direction = 'push', title = '', isHiddenNavigate = true, isHiddenTabbar = true) {
     return api.asyncJumpFrame(url, params, direction, title, isHiddenNavigate, isHiddenTabbar)
   }
+  // 调起地图定位
+  asyncLocation(showMap, title) {
+    return api.asyncLocation(showMap, title)
+  }
 }
 
 export default new Bridge()
